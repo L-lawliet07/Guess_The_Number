@@ -11,7 +11,8 @@ const span_highscore = document.querySelector('.highscore');
 
 let answer,
     score = 20,
-    highscore = 0;
+    highscore = 0,
+    won = false;
 
 span_highscore.textContent = highscore;
 
@@ -27,6 +28,7 @@ function setRandomNumber() {
  */
 function reset() {
     setRandomNumber();
+    won = false;
     body.style.backgroundColor = '#222';
     score = 20;
     span_score.textContent = score;
@@ -37,6 +39,7 @@ function reset() {
 }
 
 button_check_btn.addEventListener('click', () => {
+    if (won) return;
     const value = Number(input_guess.value);
     if (!value) {
         p_message.textContent = '🤬 Not a number';
@@ -49,6 +52,7 @@ button_check_btn.addEventListener('click', () => {
             highscore = score;
             span_highscore.textContent = highscore;
         }
+        won = true;
     } else {
         if (score > 0) {
             p_message.textContent = value > answer ? '📈Too High' : '📉Too Low';
